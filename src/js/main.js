@@ -232,22 +232,12 @@ function searchUser(users, name, age, note) {
   return null;
 }
 
-const formattedUsers = formatUsers(randomUserMock, additionalUsers);
-// console.log(formattedUsers.length);
-// console.log(formattedUsers);
-const obj = {
-  email: 'emai.l1@gmail.com',
-  full_name: 'مهدیس',
-  age: 29,
-  gender: 'female',
-  state: 'State',
-  country: 'Ukraine',
-  city: 'City',
-  note: 'Note',
-  phone: '+380685334502',
-};
-console.log(searchUsers(formattedUsers, 'r', 0, '').length);
-// console.log(isUserValid(obj));
-// console.log(filterUsers(formattedUsers, '55-75', 'Germany', 'male', true));
-// const bday = Date.parse(formattedUsers[0].b_date);
-// console.log(bday);
+// 6. Search percent
+
+function searchPercentBySearch(users, search) {
+  return searchUsersBySearch(users, search).length / users.length * 100.0;
+}
+
+function searchPercent(users, name, age, note) {
+  return searchUsers(users, name, age, note).length / users.length * 100.0;
+}
