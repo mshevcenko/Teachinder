@@ -159,6 +159,18 @@ function isUserValid(user) {
       && isPhoneValid(user);
 }
 
+// 3. Filtration
+
+function filterUsers(users, ageRange, country, gender, favorite) {
+  const floorAge = parseInt(ageRange.split('-')[0], 10);
+  const topAge = parseInt(ageRange.split('-')[1], 10);
+  return users.filter((user) => user.age >= floorAge
+    && user.age <= topAge
+    && user.country === country
+    && user.gender === gender
+    && user.favorite === favorite);
+}
+
 const formattedUsers = formatUsers(randomUserMock, additionalUsers);
 // console.log(formattedUsers.length);
 // console.log(formattedUsers);
@@ -173,4 +185,5 @@ const obj = {
   note: 'Note',
   phone: '+380685334502',
 };
-console.log(isUserValid(obj));
+// console.log(isUserValid(obj));
+console.log(filterUsers(formattedUsers, '55-75', 'Germany', 'male', true));
