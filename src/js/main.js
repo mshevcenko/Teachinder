@@ -171,6 +171,23 @@ function filterUsers(users, ageRange, country, gender, favorite) {
     && user.favorite === favorite);
 }
 
+// 4. Sorting
+
+function sortUsers(users, param, descending = false) {
+  if (users.length < 2 || !(param in users[0])) return users;
+  let compareFunc;
+  if (param === 'age') {
+    compareFunc = (first, second) => first.age - second.age;
+  } else if (param === 'b_day') {
+    compareFunc = (first, second) => Date.parse(first.b_day) - Date.parse(second.b_day);
+  } else {
+    compareFunc = (first, second) => first[param].localeCompare(second[param]);
+  }
+  users.sort(compareFunc);
+  if (descending) users.reverse();
+  return users;
+}
+
 const formattedUsers = formatUsers(randomUserMock, additionalUsers);
 // console.log(formattedUsers.length);
 // console.log(formattedUsers);
@@ -186,4 +203,6 @@ const obj = {
   phone: '+380685334502',
 };
 // console.log(isUserValid(obj));
-console.log(filterUsers(formattedUsers, '55-75', 'Germany', 'male', true));
+// console.log(filterUsers(formattedUsers, '55-75', 'Germany', 'male', true));
+// const bday = Date.parse(formattedUsers[0].b_date);
+// console.log(bday);
