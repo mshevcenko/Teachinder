@@ -97,66 +97,66 @@ function formatUsers(randomUsers, extraUsers = []) {
 
 // 2. Validation
 
-function isNameValid(user) {
-  return typeof user.full_name === 'string'
-      && user.full_name.length > 0
-      && user.full_name.charAt(0).toUpperCase() === user.full_name.charAt(0);
+function isNameValid(name) {
+  return typeof name === 'string'
+      && name.length > 0
+      && name.charAt(0).toUpperCase() === name.charAt(0);
 }
 
-function isCountryValid(user) {
-  return typeof user.country === 'string'
-      && user.country.length > 0
-      && user.country.charAt(0).toUpperCase() === user.country.charAt(0);
+function isCountryValid(country) {
+  return typeof country === 'string'
+      && country.length > 0
+      && country.charAt(0).toUpperCase() === country.charAt(0);
 }
 
-function isStateValid(user) {
-  return typeof user.state === 'string'
-      && user.state.length > 0
-      && user.state.charAt(0).toUpperCase() === user.state.charAt(0);
+function isStateValid(state) {
+  return typeof state === 'string'
+      && state.length > 0
+      && state.charAt(0).toUpperCase() === state.charAt(0);
 }
 
-function isCityValid(user) {
-  return typeof user.city === 'string'
-      && user.city.length > 0
-      && user.city.charAt(0).toUpperCase() === user.city.charAt(0);
+function isCityValid(city) {
+  return typeof city === 'string'
+      && city.length > 0
+      && city.charAt(0).toUpperCase() === city.charAt(0);
 }
 
-function isNoteValid(user) {
-  return typeof user.note === 'string'
-      && user.note.length > 0
-      && user.note.charAt(0).toUpperCase() === user.note.charAt(0);
+function isNoteValid(note) {
+  return typeof note === 'string'
+      && note.length > 0
+      && note.charAt(0).toUpperCase() === note.charAt(0);
 }
 
-function isAgeValid(user) {
-  return Number.isInteger(user.age) && user.age >= 18 && user.age <= 100;
+function isAgeValid(age) {
+  return Number.isInteger(age) && age >= 18 && age <= 100;
 }
 
-function isPhoneValid(user) {
+function isPhoneValid(phone, country) {
   const uaPhoneRegex = /^(\+38\s?)?((\(0[1-9]{2}\))|(0[1-9]{2}))(\s|\-)?[0-9]{3}(\s|\-)?[0-9]{2}(\s|\-)?[0-9]{2}$/g;
   const standardPhoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g;
-  if (user.country === 'Ukraine') return uaPhoneRegex.test(user.phone);
-  return standardPhoneRegex.test(user.phone);
+  if (country === 'Ukraine') return uaPhoneRegex.test(phone);
+  return standardPhoneRegex.test(phone);
 }
 
-function isGenderValid(user) {
-  return user.gender === 'male' || user.gender === 'female';
+function isGenderValid(gender) {
+  return gender === 'male' || gender === 'female';
 }
 
-function isEmailValid(user) {
+function isEmailValid(email) {
   const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-  return emailRegex.test(user.email);
+  return emailRegex.test(email);
 }
 
 function isUserValid(user) {
-  return isNameValid(user)
-      && isCountryValid(user)
-      && isStateValid(user)
-      && isCityValid(user)
-      && isNoteValid(user)
-      && isAgeValid(user)
-      && isGenderValid(user)
-      && isEmailValid(user)
-      && isPhoneValid(user);
+  return isNameValid(user.full_name)
+      && isCountryValid(user.country)
+      && isStateValid(user.state)
+      && isCityValid(user.city)
+      && isNoteValid(user.note)
+      && isAgeValid(user.age)
+      && isGenderValid(user.gender)
+      && isEmailValid(user.email)
+      && isPhoneValid(user.phone);
 }
 
 // 3. Filtration
@@ -188,6 +188,50 @@ function sortUsers(users, param, descending = false) {
   return users;
 }
 
+// 5. Searching
+
+function searchUsersByName(users, name) {
+  return users.filter((user) => user.full_name && user.full_name.includes(name));
+}
+
+function searchUsersByAge(users, age) {
+  return users.filter((user) => user.age && user.age === age);
+}
+
+function searchUsersByNote(users, note) {
+  return users.filter((user) => user.note && user.note.includes(note));
+}
+
+function searchUsersBySearch(users, search) {
+  if (!search) return users;
+  let searchedUsers = searchUsersByName(users, search);
+  if (searchedUsers.length > 0) return searchedUsers;
+  searchedUsers = searchUsersByNote(users, search);
+  if (searchedUsers.length > 0) return searchedUsers;
+  searchedUsers = searchUsersByAge(users, parseInt(search, 10));
+  if (searchedUsers.length > 0) return searchedUsers;
+  return [];
+}
+
+function searchUsers(users, name, age, note) {
+  users = (name && searchUsersByName(users, name)) || users;
+  users = (age && searchUsersByAge(users, age)) || users;
+  users = (note && searchUsersByNote(users, note)) || users;
+  return users;
+}
+
+function searchUserBySearch(users, search) {
+  const searchedUsers = searchUsersBySearch(users, search);
+  if (searchedUsers.length > 0) return searchedUsers[0];
+  return null;
+}
+
+function searchUser(users, name, age, note) {
+  const searchedUsers = searchUsers(users, name, age, note);
+  if (searchedUsers.length > 0) return searchedUsers[0];
+  return null;
+}
+
 const formattedUsers = formatUsers(randomUserMock, additionalUsers);
 // console.log(formattedUsers.length);
 // console.log(formattedUsers);
@@ -202,6 +246,7 @@ const obj = {
   note: 'Note',
   phone: '+380685334502',
 };
+console.log(searchUsers(formattedUsers, 'r', 0, '').length);
 // console.log(isUserValid(obj));
 // console.log(filterUsers(formattedUsers, '55-75', 'Germany', 'male', true));
 // const bday = Date.parse(formattedUsers[0].b_date);
