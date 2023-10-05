@@ -76,7 +76,7 @@ function mergeUsers(randomUser, extraUser) {
   Object.assign(randomUser, extraUser);
 }
 
-function formatUsers(randomUsers, extraUsers) {
+function formatUsers(randomUsers, extraUsers = []) {
   randomUsers = randomUsers.map(formatUser);
   extraUsers = extraUsers.map(formatUser);
   // eslint-disable-next-line no-plusplus
@@ -95,6 +95,82 @@ function formatUsers(randomUsers, extraUsers) {
   return [...randomUsers, ...extraUsers.filter(Boolean)];
 }
 
+// 2. Validation
+
+function isNameValid(user) {
+  return typeof user.full_name === 'string'
+      && user.full_name.length > 0
+      && user.full_name.charAt(0).toUpperCase() === user.full_name.charAt(0);
+}
+
+function isCountryValid(user) {
+  return typeof user.country === 'string'
+      && user.country.length > 0
+      && user.country.charAt(0).toUpperCase() === user.country.charAt(0);
+}
+
+function isStateValid(user) {
+  return typeof user.state === 'string'
+      && user.state.length > 0
+      && user.state.charAt(0).toUpperCase() === user.state.charAt(0);
+}
+
+function isCityValid(user) {
+  return typeof user.city === 'string'
+      && user.city.length > 0
+      && user.city.charAt(0).toUpperCase() === user.city.charAt(0);
+}
+
+function isNoteValid(user) {
+  return typeof user.note === 'string'
+      && user.note.length > 0
+      && user.note.charAt(0).toUpperCase() === user.note.charAt(0);
+}
+
+function isAgeValid(user) {
+  return Number.isInteger(user.age) && user.age >= 18 && user.age <= 100;
+}
+
+function isPhoneValid(user) {
+  const uaPhoneRegex = /^(\+38\s?)?((\(0[1-9]{2}\))|(0[1-9]{2}))(\s|\-)?[0-9]{3}(\s|\-)?[0-9]{2}(\s|\-)?[0-9]{2}$/g;
+  const standardPhoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g;
+  if (user.country === 'Ukraine') return uaPhoneRegex.test(user.phone);
+  return standardPhoneRegex.test(user.phone);
+}
+
+function isGenderValid(user) {
+  return user.gender === 'male' || user.gender === 'female';
+}
+
+function isEmailValid(user) {
+  const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+  return emailRegex.test(user.email);
+}
+
+function isUserValid(user) {
+  return isNameValid(user)
+      && isCountryValid(user)
+      && isStateValid(user)
+      && isCityValid(user)
+      && isNoteValid(user)
+      && isAgeValid(user)
+      && isGenderValid(user)
+      && isEmailValid(user)
+      && isPhoneValid(user);
+}
+
 const formattedUsers = formatUsers(randomUserMock, additionalUsers);
-console.log(formattedUsers.length);
-console.log(formattedUsers);
+// console.log(formattedUsers.length);
+// console.log(formattedUsers);
+const obj = {
+  email: 'emai.l1@gmail.com',
+  full_name: 'مهدیس',
+  age: 29,
+  gender: 'female',
+  state: 'State',
+  country: 'Ukraine',
+  city: 'City',
+  note: 'Note',
+  phone: '+380685334502',
+};
+console.log(isUserValid(obj));
