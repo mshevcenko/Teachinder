@@ -11,26 +11,20 @@ const defaultBackgroundColor = '#ffffff';
 let nextUserId = 0;
 
 function hasField(obj, ...args) {
-  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < args.length; i++) {
-    // eslint-disable-next-line no-prototype-builtins
     if (!obj || !obj.hasOwnProperty(args[i])) {
       return false;
     }
-    // eslint-disable-next-line no-param-reassign
     obj = obj[args[i]];
   }
   return true;
 }
 
 function getField(obj, ...args) {
-  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < args.length; i++) {
-    // eslint-disable-next-line no-prototype-builtins
     if (!obj || !obj.hasOwnProperty(args[i])) {
       return null;
     }
-    // eslint-disable-next-line no-param-reassign
     obj = obj[args[i]];
   }
   return obj;
@@ -45,7 +39,6 @@ function formatUser(user) {
     id = user.id;
   }
   const formattedUser = {
-    // eslint-disable-next-line no-plusplus
     id: id || `NEW${nextUserId++}`,
     gender: getUserField('gender'),
     title: getUserField('title') || getUserField('name', 'title'),
@@ -77,7 +70,6 @@ function formatUser(user) {
 function mergeUsers(randomUser, extraUser) {
   Object.keys(extraUser).forEach((key) => {
     if (extraUser[key] === null) {
-      // eslint-disable-next-line no-param-reassign
       delete extraUser[key];
     }
   });
@@ -85,19 +77,14 @@ function mergeUsers(randomUser, extraUser) {
 }
 
 function formatUsers(randomUsers, extraUsers = []) {
-  // eslint-disable-next-line no-param-reassign
   randomUsers = randomUsers.map(formatUser);
-  // eslint-disable-next-line no-param-reassign
   extraUsers = extraUsers.map(formatUser);
-  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < extraUsers.length; i++) {
-    // eslint-disable-next-line no-plusplus
     for (let j = 0; j < randomUsers.length; j++) {
       if (extraUsers[i].id === randomUsers[j].id
         || extraUsers[i].phone === randomUsers[j].phone
         || extraUsers[i].email === randomUsers[j].email) {
         mergeUsers(randomUsers[j], extraUsers[i]);
-        // eslint-disable-next-line no-param-reassign
         extraUsers[i] = null;
         break;
       }
@@ -111,7 +98,7 @@ function formatUsers(randomUsers, extraUsers = []) {
 function isFirstLetterUppercase(str) {
   return typeof str === 'string'
     && str.length > 0
-    && str.charAt(0).toUpperCase() === str.charAt(0);
+    && str.charAt(0).toLocaleUpperCase() === str.charAt(0);
 }
 
 function isAgeValid(age) {
@@ -151,7 +138,6 @@ function isUserValid(user) {
 function filterUsers(users, ageRange, country, gender, favorite) {
   const floorAge = ageRange && parseInt(ageRange.split('-')[0], 10);
   const topAge = ageRange && parseInt(ageRange.split('-')[1], 10);
-  // eslint-disable-next-line no-mixed-operators
   return users.filter((user) => (!floorAge || user.age >= floorAge)
     && (!topAge || user.age <= topAge)
     && (!country || user.country === country)
@@ -190,29 +176,26 @@ function searchUsersByNote(users, note) {
   return users.filter((user) => user.note && user.note.includes(note));
 }
 
-function searchUsersBySearch(users, search) {
-  if (!search) return users;
-  let searchedUsers = searchUsersByName(users, search);
+function searchUsersByQuery(users, query) {
+  if (!query) return users;
+  let searchedUsers = searchUsersByName(users, query);
   if (searchedUsers.length > 0) return searchedUsers;
-  searchedUsers = searchUsersByNote(users, search);
+  searchedUsers = searchUsersByNote(users, query);
   if (searchedUsers.length > 0) return searchedUsers;
-  searchedUsers = searchUsersByAge(users, parseInt(search, 10));
+  searchedUsers = searchUsersByAge(users, parseInt(query, 10));
   if (searchedUsers.length > 0) return searchedUsers;
   return [];
 }
 
 function searchUsers(users, name, age, note) {
-  // eslint-disable-next-line no-param-reassign
   users = (name && searchUsersByName(users, name)) || users;
-  // eslint-disable-next-line no-param-reassign
   users = (age && searchUsersByAge(users, age)) || users;
-  // eslint-disable-next-line no-param-reassign
   users = (note && searchUsersByNote(users, note)) || users;
   return users;
 }
 
-function searchUserBySearch(users, search) {
-  const searchedUsers = searchUsersBySearch(users, search);
+function searchUserByQuery(users, query) {
+  const searchedUsers = searchUsersByQuery(users, query);
   if (searchedUsers.length > 0) return searchedUsers[0];
   return null;
 }
@@ -225,13 +208,11 @@ function searchUser(users, name, age, note) {
 
 // 6. Search percent
 
-function searchPercentBySearch(users, search) {
-  // eslint-disable-next-line no-mixed-operators
-  return searchUsersBySearch(users, search).length / users.length * 100.0;
+function searchPercentByQuery(users, query) {
+  return searchUsersByQuery(users, query).length / users.length * 100.0;
 }
 
 function searchPercent(users, name, age, note) {
-  // eslint-disable-next-line no-mixed-operators
   return searchUsers(users, name, age, note).length / users.length * 100.0;
 }
 
@@ -242,8 +223,8 @@ module.exports = {
   sortUsers,
   searchUsers,
   searchUser,
-  searchUsersBySearch,
-  searchUserBySearch,
+  searchUsersByQuery,
+  searchUserByQuery,
   searchPercent,
-  searchPercentBySearch,
+  searchPercentByQuery,
 };

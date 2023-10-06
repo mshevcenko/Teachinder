@@ -23,7 +23,7 @@ const randomUserMock = [
     },
     dob: { date: '1956-12-23T19:09:19.602Z', age: 65 },
     registered: { date: '2004-09-01T12:10:49.583Z', age: 17 },
-    phone: '0079-8291509',
+    phone: '0798291509',
     cell: '0179-1899833',
     id: { name: '', value: null },
     picture: {
@@ -32,6 +32,7 @@ const randomUserMock = [
       thumbnail: 'https://randomuser.me/api/portraits/thumb/men/28.jpg',
     },
     nat: 'DE',
+    note: 'Note',
   },
   {
     gender: 'male',
@@ -66,6 +67,7 @@ const randomUserMock = [
       thumbnail: 'https://randomuser.me/api/portraits/thumb/men/40.jpg',
     },
     nat: 'IE',
+    note: 'Note',
   },
   {
     gender: 'male',
@@ -1816,7 +1818,7 @@ const additionalUsers = [
     timezone: { offset: '+9:30', description: 'Adelaide, Darwin' },
     email: 'norbert.weishaupt@example.com',
     b_day: '1956-12-23T19:09:19.602Z',
-    phone: '0079-8291509',
+    phone: '0798291509',
     id: 'fgesrg456dsf234c1',
     favorite: true,
     course: null,

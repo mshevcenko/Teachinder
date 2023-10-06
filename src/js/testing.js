@@ -5,13 +5,11 @@ const {
   sortUsers,
   searchUsers,
   searchUser,
-  searchUsersBySearch,
-  searchUserBySearch,
+  searchUsersByQuery,
+  searchUserByQuery,
   searchPercent,
-  searchPercentBySearch,
-// eslint-disable-next-line import/extensions
+  searchPercentByQuery,
 } = require('./app.js');
-// eslint-disable-next-line import/extensions
 const { randomUserMock, additionalUsers } = require('./mock.js');
 
 const formattedUsers = formatUsers(randomUserMock, additionalUsers);
@@ -27,22 +25,45 @@ const testUser = {
   note: 'Smth',
 };
 
-console.log(formattedUsers.length);
-console.log('=========================================================================================');
+console.log('===================================================================');
+console.log('1. Formatting');
+console.log('===================================================================');
+console.log();
+console.log(formattedUsers);
+console.log();
+console.log('===================================================================');
+console.log('2. Validation');
+console.log('===================================================================');
+console.log();
+console.log(testUser);
 console.log(isUserValid(testUser));
-console.log('=========================================================================================');
+console.log(formattedUsers[1]);
+console.log(isUserValid(formattedUsers[1]));
+console.log();
+console.log('===================================================================');
+console.log('3. Filtration');
+console.log('===================================================================');
+console.log();
 console.log(filterUsers(formattedUsers, '55-75', 'Germany', 'male', true));
-console.log('=========================================================================================');
+console.log();
+console.log('===================================================================');
+console.log('4. Sorting');
+console.log('===================================================================');
+console.log();
 console.log(sortUsers(formattedUsers, 'full_name'));
-console.log('=========================================================================================');
+console.log();
+console.log('===================================================================');
+console.log('5. Searching');
+console.log('===================================================================');
+console.log();
 console.log(searchUsers(formattedUsers, 'r', 65, null));
-console.log('=========================================================================================');
-console.log(searchUsersBySearch(formattedUsers, '65'));
-console.log('=========================================================================================');
+console.log(searchUsersByQuery(formattedUsers, '65'));
 console.log(searchUser(formattedUsers, 'r', 65, null));
-console.log('=========================================================================================');
-console.log(searchUserBySearch(formattedUsers, '65'));
-console.log('=========================================================================================');
+console.log(searchUserByQuery(formattedUsers, '65'));
+console.log();
+console.log('===================================================================');
+console.log('6. Search percent');
+console.log('===================================================================');
+console.log();
 console.log('percent:', searchPercent(formattedUsers, 'r', 65, null));
-console.log('=========================================================================================');
-console.log('percent:', searchPercentBySearch(formattedUsers, '65'));
+console.log('percent:', searchPercentByQuery(formattedUsers, '65'));
