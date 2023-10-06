@@ -108,34 +108,10 @@ function formatUsers(randomUsers, extraUsers = []) {
 
 // 2. Validation
 
-function isNameValid(name) {
-  return typeof name === 'string'
-    && name.length > 0
-    && name.charAt(0).toUpperCase() === name.charAt(0);
-}
-
-function isCountryValid(country) {
-  return typeof country === 'string'
-    && country.length > 0
-    && country.charAt(0).toUpperCase() === country.charAt(0);
-}
-
-function isStateValid(state) {
-  return typeof state === 'string'
-    && state.length > 0
-    && state.charAt(0).toUpperCase() === state.charAt(0);
-}
-
-function isCityValid(city) {
-  return typeof city === 'string'
-    && city.length > 0
-    && city.charAt(0).toUpperCase() === city.charAt(0);
-}
-
-function isNoteValid(note) {
-  return typeof note === 'string'
-    && note.length > 0
-    && note.charAt(0).toUpperCase() === note.charAt(0);
+function isFirstLetterUppercase(str) {
+  return typeof str === 'string'
+    && str.length > 0
+    && str.charAt(0).toUpperCase() === str.charAt(0);
 }
 
 function isAgeValid(age) {
@@ -159,11 +135,11 @@ function isEmailValid(email) {
 }
 
 function isUserValid(user) {
-  return isNameValid(user.full_name)
-    && isCountryValid(user.country)
-    && isStateValid(user.state)
-    && isCityValid(user.city)
-    && isNoteValid(user.note)
+  return isFirstLetterUppercase(user.full_name)
+    && isFirstLetterUppercase(user.country)
+    && isFirstLetterUppercase(user.state)
+    && isFirstLetterUppercase(user.city)
+    && isFirstLetterUppercase(user.note)
     && isAgeValid(user.age)
     && isGenderValid(user.gender)
     && isEmailValid(user.email)
