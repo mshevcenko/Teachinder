@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import/extensions,no-unused-vars
 import { randomUserMock, additionalUsers } from './mock.js';
 
 // 1. Format users
@@ -8,17 +8,22 @@ const defaultBackgroundColor = '#ffffff';
 let nextUserId = 0;
 
 function hasField(obj, ...args) {
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < args.length; i++) {
+    // eslint-disable-next-line no-prototype-builtins
     if (!obj || !obj.hasOwnProperty(args[i])) {
       return false;
     }
+    // eslint-disable-next-line no-param-reassign
     obj = obj[args[i]];
   }
   return true;
 }
 
 function getField(obj, ...args) {
+  // eslint-disable-next-line no-plusplus
   for (let i = 0; i < args.length; i++) {
+    // eslint-disable-next-line no-prototype-builtins
     if (!obj || !obj.hasOwnProperty(args[i])) {
       return null;
     }
@@ -77,10 +82,13 @@ function mergeUsers(randomUser, extraUser) {
 }
 
 function formatUsers(randomUsers, extraUsers = []) {
+  // eslint-disable-next-line no-param-reassign
   randomUsers = randomUsers.map(formatUser);
+  // eslint-disable-next-line no-param-reassign
   extraUsers = extraUsers.map(formatUser);
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < extraUsers.length; i++) {
+    // eslint-disable-next-line no-plusplus
     for (let j = 0; j < randomUsers.length; j++) {
       if (extraUsers[i].id === randomUsers[j].id
           || extraUsers[i].phone === randomUsers[j].phone
@@ -132,8 +140,8 @@ function isAgeValid(age) {
 }
 
 function isPhoneValid(phone, country) {
-  const uaPhoneRegex = /^(\+38\s?)?((\(0[1-9]{2}\))|(0[1-9]{2}))(\s|\-)?[0-9]{3}(\s|\-)?[0-9]{2}(\s|\-)?[0-9]{2}$/g;
-  const standardPhoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g;
+  const uaPhoneRegex = /^(\+38\s?)?((\(0[1-9]{2}\))|(0[1-9]{2}))(\s|-)?[0-9]{3}(\s|-)?[0-9]{2}(\s|-)?[0-9]{2}$/g;
+  const standardPhoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/g;
   if (country === 'Ukraine') return uaPhoneRegex.test(phone);
   return standardPhoneRegex.test(phone);
 }
@@ -162,13 +170,14 @@ function isUserValid(user) {
 // 3. Filtration
 
 function filterUsers(users, ageRange, country, gender, favorite) {
-  const floorAge = parseInt(ageRange.split('-')[0], 10);
-  const topAge = parseInt(ageRange.split('-')[1], 10);
-  return users.filter((user) => user.age >= floorAge
-    && user.age <= topAge
-    && user.country === country
-    && user.gender === gender
-    && user.favorite === favorite);
+  const floorAge = ageRange && parseInt(ageRange.split('-')[0], 10);
+  const topAge = ageRange && parseInt(ageRange.split('-')[1], 10);
+  // eslint-disable-next-line no-mixed-operators
+  return users.filter((user) => (!floorAge || user.age >= floorAge)
+    && (!topAge || user.age <= topAge)
+    && (!country || user.country === country)
+    && (!gender || user.gender === gender)
+    && (!favorite || user.favorite === favorite));
 }
 
 // 4. Sorting
@@ -214,8 +223,11 @@ function searchUsersBySearch(users, search) {
 }
 
 function searchUsers(users, name, age, note) {
+  // eslint-disable-next-line no-param-reassign
   users = (name && searchUsersByName(users, name)) || users;
+  // eslint-disable-next-line no-param-reassign
   users = (age && searchUsersByAge(users, age)) || users;
+  // eslint-disable-next-line no-param-reassign
   users = (note && searchUsersByNote(users, note)) || users;
   return users;
 }
@@ -235,9 +247,24 @@ function searchUser(users, name, age, note) {
 // 6. Search percent
 
 function searchPercentBySearch(users, search) {
+  // eslint-disable-next-line no-mixed-operators
   return searchUsersBySearch(users, search).length / users.length * 100.0;
 }
 
 function searchPercent(users, name, age, note) {
+  // eslint-disable-next-line no-mixed-operators
   return searchUsers(users, name, age, note).length / users.length * 100.0;
 }
+
+export {
+  formatUsers,
+  isUserValid,
+  filterUsers,
+  sortUsers,
+  searchUsers,
+  searchUser,
+  searchUsersBySearch,
+  searchUserBySearch,
+  searchPercent,
+  searchPercentBySearch,
+};
