@@ -1,4 +1,4 @@
-import {
+const {
   formatUsers,
   isUserValid,
   filterUsers,
@@ -10,8 +10,9 @@ import {
   searchPercent,
   searchPercentBySearch,
 // eslint-disable-next-line import/extensions
-} from './main.js';
-import { randomUserMock, additionalUsers } from './mock.js';
+} = require('./app.js');
+// eslint-disable-next-line import/extensions
+const { randomUserMock, additionalUsers } = require('./mock.js');
 
 const formattedUsers = formatUsers(randomUserMock, additionalUsers);
 const testUser = {
@@ -26,7 +27,7 @@ const testUser = {
   note: 'Smth',
 };
 
-console.log(formattedUsers);
+console.log(formattedUsers.length);
 console.log('=========================================================================================');
 console.log(isUserValid(testUser));
 console.log('=========================================================================================');
