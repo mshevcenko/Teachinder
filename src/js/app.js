@@ -154,8 +154,10 @@ function sortUsers(users, param, descending = false) {
     compareFunc = (first, second) => first.age - second.age;
   } else if (param === 'b_day') {
     compareFunc = (first, second) => Date.parse(first.b_day) - Date.parse(second.b_day);
-  } else {
+  } else if (param === 'country' || param === 'full_name') {
     compareFunc = (first, second) => first[param].localeCompare(second[param]);
+  } else {
+    return users;
   }
   users.sort(compareFunc);
   if (descending) users.reverse();
