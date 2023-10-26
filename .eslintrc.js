@@ -17,5 +17,9 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-mixed-operators': 'off',
     'import/extensions': 'off',
+    'no-unused-expressions': 'off',
+    'no-restricted-syntax': 'off',
+    'class-methods-use-this': 'off',
+    'max-len': 'off',
   },
 };
