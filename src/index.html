@@ -23,7 +23,7 @@
                <span class="logo">Teachinder</span>
                <div class="search">
                   <input type="search" placeholder="Name, note or age to search">
-                  <button type="submit">Search</button>
+                  <button>Search</button>
                </div>
             </div>
             <nav>
@@ -47,16 +47,18 @@
                      <li>
                         <span>Age</span>
                         <select name="age_selection">
-                           <option value="from_18_to_35" selected>18-35</option>
-                           <option value="from_36_to_50">36-50</option>
-                           <option value="from_51_to_60">51-60</option>
-                           <option value="more_than_61">61+</option>
+                           <option value="" selected>All</option>
+                           <option value="18-35">18-35</option>
+                           <option value="36-50">36-50</option>
+                           <option value="51-60">51-60</option>
+                           <option value="61+">61+</option>
                         </select>
                      </li>
                      <li>
-                        <span>Region</span>
-                        <select name="region_selection">
-                           <option value="europe" selected>Europe</option>
+                        <span>Country</span>
+                        <select name="country_selection">
+                           <option value="" selected>All</option>
+                           <option value="europe">Europe</option>
                            <option value="asia">Asia</option>
                            <option value="north_america">North America</option>
                            <option value="south_america">South America</option>
@@ -67,7 +69,8 @@
                      <li>
                         <span>Sex</span>
                         <select name="sex_selection">
-                           <option value="male" selected>Male</option>
+                           <option value="" selected>All</option>
+                           <option value="male">Male</option>
                            <option value="female">Female</option>
                         </select>
                      </li>
@@ -134,7 +137,9 @@
                      <p class="country">Ukraine</p>
                   </div>
                   <div class="teacher_card">
-                     <img src="images/teacher1.jpg" alt="Mykhailo Shevchenko" class="teacher_icon"/>
+                     <div class="teacher_icon">
+                        <img src="images/teacher1.jpg" alt="Mykhailo Shevchenko" />
+                     </div>
                      <h2>Ihor</h2>
                      <h2>Tkachuk</h2>
                      <p class="subject">Chemistry</p>
@@ -158,16 +163,16 @@
                   <table>
                      <thead>
                         <tr>
-                           <th scope="col" class="first_column">Name</th>
-                           <th scope="col" class="table_heading">Speciality</th>
-                           <th scope="col" class="table_heading">Age</th>
-                           <th scope="col" class="table_heading">Gender</th>
-                           <th scope="col" class="table_heading">Nationality</th>
+                           <th scope="col" class="sort_by_name">Name</th>
+                           <th scope="col" class="sort_by_speciality">Speciality</th>
+                           <th scope="col" class="sort_by_age">Age</th>
+                           <th scope="col" class="sort_by_gender">Gender</th>
+                           <th scope="col" class="sort_by_nationality">Nationality</th>
                         </tr>
                      </thead>
                      <tbody>
                      <tr>
-                        <td class="first_column">Daisy Alexander</td>
+                        <td>Daisy Alexander</td>
                         <td>Chemistry</td>
                         <td>28</td>
                         <td>Female</td>
@@ -250,41 +255,33 @@
             <hr/>
             <div id="favorites_teachers">
                <h1>Favorites</h1>
-               <div class="favorites_teachers_list">
-                  <div class="arrow">
+               <div class="slider">
+                  <div class="arrow" id="left_arrow">
                      <img src="images/left_arrow.png" alt="back">
                   </div>
-                  <div class="teacher_card">
-                     <img src="images/teacher1.jpg" alt="Mykhailo Shevchenko" class="teacher_icon"/>
-                     <h2>Ihor</h2>
-                     <h2>Tkachuk</h2>
-                     <p class="country">Ukraine</p>
+                  <div class="favorites_teachers_list">
+
+
+                     <div class="teacher_card">
+                        <img src="images/teacher1.jpg" alt="Mykhailo Shevchenko" class="teacher_icon"/>
+                        <h2>Ihor</h2>
+                        <h2>Tkachuk</h2>
+                        <p class="country">Ukraine</p>
+                     </div>
+                     <div class="teacher_card">
+                        <img src="images/teacher1.jpg" alt="Mykhailo Shevchenko" class="teacher_icon"/>
+                        <h2>Ihor</h2>
+                        <h2>Tkachuk</h2>
+                        <p class="country">Ukraine</p>
+                     </div>
+                     <div class="teacher_card">
+                        <img src="images/teacher1.jpg" alt="Mykhailo Shevchenko" class="teacher_icon"/>
+                        <h2>Ihor</h2>
+                        <h2>Tkachuk</h2>
+                        <p class="country">Ukraine</p>
+                     </div>
                   </div>
-                  <div class="teacher_card">
-                     <img src="images/teacher1.jpg" alt="Mykhailo Shevchenko" class="teacher_icon"/>
-                     <h2>Ihor</h2>
-                     <h2>Tkachuk</h2>
-                     <p class="country">Ukraine</p>
-                  </div>
-                  <div class="teacher_card">
-                     <img src="images/teacher1.jpg" alt="Mykhailo Shevchenko" class="teacher_icon"/>
-                     <h2>Ihor</h2>
-                     <h2>Tkachuk</h2>
-                     <p class="country">Ukraine</p>
-                  </div>
-                  <div class="teacher_card">
-                     <img src="images/teacher1.jpg" alt="Mykhailo Shevchenko" class="teacher_icon"/>
-                     <h2>Ihor</h2>
-                     <h2>Tkachuk</h2>
-                     <p class="country">Ukraine</p>
-                  </div>
-                  <div class="teacher_card">
-                     <img src="images/teacher1.jpg" alt="Mykhailo Shevchenko" class="teacher_icon"/>
-                     <h2>Ihor</h2>
-                     <h2>Tkachuk</h2>
-                     <p class="country">Ukraine</p>
-                  </div>
-                  <div class="arrow">
+                  <div class="arrow" id="right_arrow">
                      <img src="images/right_arrow.png" alt="back">
                   </div>
                </div>
@@ -313,102 +310,95 @@
                <button type="button">Add teacher</button>
             </nav>
          </footer>
-         <div id="teacher_info_popup" class="popup">
-            <div class="popup_body">
-               <div class="popup_content">
-                  <div class="popup_header">
-                     <h4>Teacher Info</h4>
-                     <img src="images/close_btn.png" alt="close">
+         <dialog id="teacher_info_popup" class="popup">
+            <div class="popup_header">
+               <h4>Teacher Info</h4>
+               <img src="images/close_btn.png" alt="close" class="popup_close_btn">
+            </div>
+            <div class="teacher_info">
+               <div class="teacher_main_info">
+                  <img src="images/teacher1.jpg" alt="Ihor Tkachuk" class="teacher_photo"/>
+                  <p class="fullname">Ihor Tkachuk</p>
+                  <button class="favorite_mark">
+                     <img src="images/star_border.png" alt="favorite mark"/>
+                  </button>
+                  <p class="subject">Chemistry</p>
+                  <p class="city_and_country">Kyiv, Ukraine</p>
+                  <p class="age_and_sex">35, Male</p>
+                  <a href="ihor_tkachuk@domain.com" class="email">ihor_tkachuk@domain.com</a>
+                  <p class="phone_number">+380964993252</p>
+               </div>
+               <p class="about_teacher">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab autem consectetur culpa cumque, distinctio dolor dolore dolorem doloremque ea explicabo facilis nam nesciunt nisi pariatur perspiciatis porro quis similique temporibus veniam veritatis? A ab ad, aliquam amet consequatur cupiditate debitis deserunt doloribus dolorum earum eius eos minus nostrum odit omnis perferendis....</p>
+               <span><a href="https://www.google.com.ua/maps" class="toggle_map">toggle map</a></span>
+            </div>
+         </dialog>
+         <dialog id="add_teacher_popup" class="popup">
+            <div class="popup_header">
+               <h4>Add Teacher</h4>
+               <img src="images/close_btn.png" alt="close" class="popup_close_btn">
+            </div>
+            <form class="add_teacher_form">
+               <div class="field_wrapper">
+                  <label for="name_textbox">Name</label>
+                  <input type="text" id="name_textbox" name="secondname" maxlength="256" placeholder="Enter name" required pattern="\p{Lu}.*">
+               </div>
+               <div class="field_wrapper">
+                  <label for="subject_selection">Speciality</label>
+                  <select id="subject_selection" name="subject">
+                     <option value="Mathematics" selected>Mathematics</option>
+                     <option value="Chess">Chess</option>
+                     <option value="Art">Art</option>
+                     <option value="Chemistry">Chemistry</option>
+                  </select>
+               </div>
+               <div id="contact_data">
+                  <div class="field_wrapper">
+                     <label for="country_selection">Country</label>
+                     <select id="country_selection" name="country">
+                        <option value="USA" selected>USA</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Ireland">Ireland</option>
+                     </select>
                   </div>
-                  <div class="teacher_info">
-                     <div class="teacher_main_info">
-                        <img src="images/teacher1.jpg" alt="Ihor Tkachuk" class="teacher_photo"/>
-                        <p class="fullname">Ihor Tkachuk</p>
-                        <img src="images/star_border.png" alt="favorite mark" class="favorite_mark"/>
-                        <p class="subject">Chemistry</p>
-                        <p class="city_and_country">Kyiv, Ukraine</p>
-                        <p class="age_and_sex">35, Male</p>
-                        <a href="ihor_tkachuk@domain.com" class="email">ihor_tkachuk@domain.com</a>
-                        <p class="phone_number">+380964993252</p>
+                  <div class="field_wrapper">
+                     <label for="city_textbox">City</label>
+                     <input type="text" id="city_textbox" name="city" maxlength="256" required pattern="\p{Lu}.*">
+                  </div>
+                  <div class="field_wrapper">
+                     <label for="email_textbox">Email</label>
+                     <input type="text" id="email_textbox" name="email" maxlength="256" pattern=".+@.+" required>
+                  </div>
+                  <div class="field_wrapper">
+                     <label for="phone_textbox">Phone</label>
+                     <input type="text" id="phone_textbox" name="phone" maxlength="256" required>
+                  </div>
+                  <div>
+                     <div class="field_wrapper">
+                        <label for="date_of_birth_picker">Date of birth</label>
+                        <input type="date" id="date_of_birth_picker" name="date">
                      </div>
-                     <p class="about_teacher">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab autem consectetur culpa cumque, distinctio dolor dolore dolorem doloremque ea explicabo facilis nam nesciunt nisi pariatur perspiciatis porro quis similique temporibus veniam veritatis? A ab ad, aliquam amet consequatur cupiditate debitis deserunt doloribus dolorum earum eius eos minus nostrum odit omnis perferendis....</p>
-                     <span><a href="https://www.google.com.ua/maps" class="toggle_map">toggle map</a></span>
+                     <div id="sex_selection" class="field_wrapper">
+                        <span>Sex</span>
+                        <span class="wrapper">
+                     <label for="male_radiobtn">Male</label>
+                     <input type="radio" id="male_radiobtn" name="sex" value="male" checked/>
+                     <label for="female_radiobtn">Female</label>
+                     <input type="radio" id="female_radiobtn" name="sex" value="female"/>
+                  </span>
+                     </div>
+                     <div id="background_color_picker_div" class="field_wrapper">
+                        <label for="background_color_picker">Background color</label>
+                        <input type="color" id="background_color_picker" name="background_color" value="#ffffff">
+                     </div>
                   </div>
                </div>
-            </div>
-         </div>
-         <div id="add_teacher_popup" class="popup">
-            <div class="popup_body">
-               <div class="popup_content">
-                  <div class="popup_header">
-                     <h4>Add Teacher</h4>
-                     <img src="images/close_btn.png" alt="close">
-                  </div>
-                  <form class="add_teacher_form">
-                     <div class="field_wrapper">
-                        <label for="name_textbox">Name</label>
-                        <input type="text" id="name_textbox" name="secondname" maxlength="256" placeholder="Enter name" required>
-                     </div>
-                     <div class="field_wrapper">
-                        <label for="subject_selection">Speciality</label>
-                        <select id="subject_selection" name="subgect">
-                           <option value="mathematics" selected>Mathematics</option>
-                           <option value="chess">Chess</option>
-                           <option value="art">Art</option>
-                           <option value="chemistry">Chemistry</option>
-                        </select>
-                     </div>
-                     <div id="contact_data">
-                        <div class="field_wrapper">
-                           <label for="country_selection">Country</label>
-                           <select id="country_selection" name="country">
-                              <option value="ukraine" selected>Ukraine</option>
-                              <option value="usa">USA</option>
-                              <option value="italy">Italy</option>
-                              <option value="ireland">Ireland</option>
-                           </select>
-                        </div>
-                        <div class="field_wrapper">
-                           <label for="city_textbox">City</label>
-                           <input type="text" id="city_textbox" name="city" maxlength="256" required>
-                        </div>
-                        <div class="field_wrapper">
-                           <label for="email_textbox">Email</label>
-                           <input type="text" id="email_textbox" name="email" maxlength="256" required>
-                        </div>
-                        <div class="field_wrapper">
-                           <label for="phone_textbox">Phone</label>
-                           <input type="text" id="phone_textbox" name="phone" maxlength="256" required>
-                        </div>
-                        <div>
-                           <div class="field_wrapper">
-                              <label for="date_of_birth_picker">Date of birth</label>
-                              <input type="date" id="date_of_birth_picker" name="date">
-                           </div>
-                           <div id="sex_selection" class="field_wrapper">
-                              <span>Sex</span>
-                              <span class="wrapper">
-                           <label for="male_radiobtn">Male</label>
-                           <input type="radio" id="male_radiobtn" name="sex" value="male" checked/>
-                           <label for="female_radiobtn">Female</label>
-                           <input type="radio" id="female_radiobtn" name="sex" value="female"/>
-                        </span>
-                           </div>
-                           <div id="background_color_picker_div" class="field_wrapper">
-                              <label for="background_color_picker">Background color</label>
-                              <input type="color" id="background_color_picker" name="background_color" value="#ffffff">
-                           </div>
-                        </div>
-                     </div>
-                     <div class="field_wrapper">
-                        <label for="notes_text_area">Notes (optional)</label>
-                        <textarea name="text" id="notes_text_area" rows="3"></textarea>
-                     </div>
-                     <button type="submit" class="add_teacher_btn">Add</button>
-                  </form>
+               <div class="field_wrapper">
+                  <label for="notes_text_area">Notes</label>
+                  <textarea name="text" id="notes_text_area" rows="3" required></textarea>
                </div>
-            </div>
-         </div>
+               <button type="submit" class="add_teacher_btn">Add</button>
+            </form>
+         </dialog>
       </div>
   </body>
 </html>

@@ -12,6 +12,14 @@ body {
   margin: 0;
 }
 
+body.popup_active {
+  overflow: hidden;
+}
+
+.not_visible {
+  display: none;
+}
+
 .logo_with_search {
   padding-bottom: 20px;
   padding-left: 100px;
@@ -27,6 +35,7 @@ body {
   font-family: serif;
   text-shadow: 1px 1px 2px black, -1px -1px 2px rgb(244, 100, 74);
   float: left;
+  cursor: pointer;
 }
 .logo_with_search .logo:hover {
   text-shadow: 2px 2px 2px black, -2px -2px 2px rgb(244, 100, 74);
@@ -174,6 +183,7 @@ h1 {
   border-right: none;
   display: flex;
 }
+
 .favorite {
   position: relative;
   top: -50px;
@@ -197,7 +207,8 @@ h1 {
   position: relative;
 }
 .teacher_card .teacher_icon {
-  width: calc(100% - 8px);
+  box-sizing: border-box;
+  width: 100%;
   aspect-ratio: 1/1;
   border: 4px solid orangered;
   border-radius: 50%;
@@ -206,6 +217,12 @@ h1 {
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
+  overflow: hidden;
+}
+.teacher_card .teacher_icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .teacher_card .teacher_icon h3 {
   font-size: 36px;
@@ -215,6 +232,9 @@ h1 {
 }
 .teacher_card .teacher_icon:hover {
   border-color: brown;
+}
+.teacher_card .teacher_icon:hover img {
+  scale: 110%;
 }
 .teacher_card .teacher_icon:hover h3 {
   color: brown;
@@ -227,7 +247,7 @@ h1 {
 .teacher_card p {
   margin: 0;
 }
-.teacher_card .subject {
+.teacher_card .course {
   margin-top: 10px;
   margin-bottom: 10px;
   color: gray;
@@ -238,10 +258,20 @@ h1 {
   margin-top: 10px;
 }
 .teacher_card .favorite_teacher_mark {
+  display: none;
   width: 20%;
   position: absolute;
   top: 15%;
   left: 73%;
+}
+
+.favorite_true .favorite_teacher_mark {
+  display: block;
+}
+
+.slider {
+  display: grid;
+  grid-template-columns: 100px 1fr 100px;
 }
 
 .arrow {
@@ -250,17 +280,32 @@ h1 {
   justify-content: center;
 }
 
+.not_clickable {
+  filter: brightness(50%);
+}
+
 .arrow img:hover {
   filter: brightness(50%);
 }
 
+.arrow.not_clickable img:hover {
+  filter: brightness(100%);
+}
+
 .favorites_teachers_list {
-  display: grid;
-  grid-template-columns: 100px repeat(5, 1fr) 100px;
+  display: flex;
+  justify-content: center;
   padding-bottom: 40px;
 }
 .favorites_teachers_list .teacher_card {
+  width: calc((100% - 200px) / 5);
   padding-top: 0;
+}
+.favorites_teachers_list .teacher_card .course {
+  display: none;
+}
+.favorites_teachers_list .teacher_card .favorite_teacher_mark {
+  display: none;
 }
 
 #statistic_table {
@@ -356,55 +401,46 @@ h1 {
 }
 
 .popup {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  top: 0;
-  left: 0;
-}
-
-.popup_body {
-  min-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 10px;
-}
-
-.popup_content {
   background-color: white;
+  border-style: none;
   border-radius: 2px;
-  overflow: hidden;
+  padding: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-.popup_content .popup_header {
+.popup .popup_header {
   box-sizing: border-box;
   background-color: rgb(70, 70, 70);
   display: flex;
   justify-content: space-between;
   padding: 12px;
 }
-.popup_content .popup_header h4 {
+.popup .popup_header h4 {
   margin: 0;
   color: white;
   font-family: "Roboto", sans-serif;
   font-weight: bold;
   font-size: 18px;
 }
-.popup_content .popup_header img {
+.popup .popup_header img {
   width: 16px;
   object-fit: contain;
   cursor: pointer;
 }
-.popup_content .popup_header img:hover {
+.popup .popup_header img:hover {
   filter: brightness(50%);
 }
 
-#teacher_info_popup {
-  visibility: hidden;
-  font-family: "Roboto", sans-serif;
+.popup::-webkit-scrollbar {
+  display: none;
 }
-#teacher_info_popup .popup_content {
+
+.popup::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#teacher_info_popup {
+  font-family: "Roboto", sans-serif;
   width: 900px;
 }
 #teacher_info_popup .teacher_info {
@@ -435,7 +471,7 @@ h1 {
   font-size: 32px;
   margin-top: 0;
 }
-#teacher_info_popup .teacher_info .teacher_main_info .subject {
+#teacher_info_popup .teacher_info .teacher_main_info .course {
   font-size: 18px;
   font-weight: bold;
 }
@@ -456,18 +492,27 @@ h1 {
 #teacher_info_popup .teacher_info .teacher_main_info .favorite_mark {
   position: absolute;
   width: 40px;
+  height: 40px;
   top: 0;
   right: 0;
+  border: none;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
+}
+#teacher_info_popup .teacher_info .teacher_main_info .favorite_mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+#teacher_info_popup .teacher_info .teacher_main_info .favorite_mark:hover {
+  background-color: rgba(255, 255, 255, 0);
 }
 
 #add_teacher_popup {
-  visibility: hidden;
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   color: gray;
-}
-#add_teacher_popup .popup_content {
   width: 500px;
 }
 #add_teacher_popup .add_teacher_form {
@@ -620,20 +665,23 @@ h1 {
     padding-top: 10px;
     padding-bottom: 10px;
   }
-  .favorites_teachers_list {
+  .slider {
     display: grid;
-    grid-template-columns: 50px 1fr 1fr 50px;
+    grid-template-columns: 50px 1fr 50px;
+  }
+  .favorites_teachers_list .teacher_card {
+    width: 50%;
   }
   .favorites_teachers_list .teacher_card:nth-child(3) {
-    visibility: hidden;
+    display: none;
     position: absolute;
   }
   .favorites_teachers_list .teacher_card:nth-child(4) {
-    visibility: hidden;
+    display: none;
     position: absolute;
   }
   .favorites_teachers_list .teacher_card:nth-child(5) {
-    visibility: hidden;
+    display: none;
     position: absolute;
   }
   #footer_text {

@@ -20,6 +20,14 @@ body {
   margin: 0;
 }
 
+body.popup_active {
+  overflow: hidden;
+}
+
+.not_visible {
+  display: none;
+}
+
 .logo_with_search {
   padding-bottom: 20px;
   padding-left: $side-padding;
@@ -36,6 +44,7 @@ body {
     text-shadow: 1px 1px 2px black,
     -1px -1px 2px rgb(244, 100, 74);
     float: left;
+    cursor: pointer;
   }
 
   .logo:hover {
@@ -203,10 +212,6 @@ h1 {
     border-right: none;
     display: flex;
   }
-
-  #favorites {
-
-  }
 }
 
 .favorite {
@@ -232,7 +237,8 @@ h1 {
   position: relative;
 
   .teacher_icon {
-    width: calc(100% - 8px);
+    box-sizing: border-box;
+    width: 100%;
     aspect-ratio: 1 / 1;
     border: 4px solid $primary-color;
     border-radius: 50%;
@@ -241,6 +247,13 @@ h1 {
     align-items:center;
     justify-content:center;
     margin-bottom: 10px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
 
     h3 {
       font-size: 36px;
@@ -252,6 +265,10 @@ h1 {
 
   .teacher_icon:hover {
     border-color: $primary-hover-color;
+
+    img {
+      scale: 110%;
+    }
 
     h3 {
       color: $primary-hover-color;
@@ -268,7 +285,7 @@ h1 {
     margin: 0;
   }
 
-  .subject {
+  .course {
     margin-top: 10px;
     margin-bottom: 10px;
     color: gray;
@@ -281,11 +298,24 @@ h1 {
   }
 
   .favorite_teacher_mark {
+    display: none;
     width: 20%;
     position: absolute;
     top: 15%;
     left: 73%;
   }
+
+}
+
+.favorite_true {
+  .favorite_teacher_mark {
+    display: block;
+  }
+}
+
+.slider {
+  display: grid;
+  grid-template-columns: $side-padding 1fr $side-padding;
 
 }
 
@@ -295,17 +325,34 @@ h1 {
   justify-content:center;
 }
 
+.not_clickable {
+  filter: brightness(50%);
+}
+
 .arrow img:hover {
   filter: brightness(50%);
 }
 
+.arrow.not_clickable img:hover {
+  filter: brightness(100%);
+}
+
 .favorites_teachers_list {
-  display: grid;
-  grid-template-columns: $side-padding repeat(5, 1fr) $side-padding;
+  display: flex;
+  justify-content: center;
   padding-bottom: 40px;
 
   .teacher_card {
+    width: calc((100% - 2 * 100px) / 5);
     padding-top: 0;
+
+    .course {
+      display: none;
+    }
+
+    .favorite_teacher_mark {
+      display: none;
+    }
   }
 }
 
@@ -332,7 +379,6 @@ h1 {
       th:hover {
         background-color: rgb(250, 250, 250);
         box-shadow: inset 0 -3px 0 0 black;
-        //border-bottom: 3px solid black;
       }
       th:nth-child(1) {
         width: calc(100% / 22 * 5);
@@ -414,27 +460,12 @@ h1 {
 }
 
 .popup {
-  //visibility: hidden;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  top: 0;
-  left: 0;
-}
-
-.popup_body {
-  min-height: 100%;
-  display: flex;
-  align-items:center;
-  justify-content:center;
-  padding: 30px 10px;
-}
-
-.popup_content {
   background-color: white;
+  border-style: none;
   border-radius: 2px;
-  overflow: hidden;
+  padding: 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 
   .popup_header {
     box-sizing: border-box;
@@ -442,6 +473,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     padding: 12px;
+
     h4 {
       margin: 0;
       color: white;
@@ -449,24 +481,30 @@ h1 {
       font-weight: bold;
       font-size: 18px;
     }
+
     img {
       width: 16px;
       object-fit: contain;
       cursor: pointer;
     }
+
     img:hover {
       filter: brightness(50%);
     }
   }
 }
 
-#teacher_info_popup {
-  visibility: hidden;
-  font-family: $primary-font-family;
+.popup::-webkit-scrollbar {
+  display: none;
+}
 
-  .popup_content {
-    width: 900px;
-  }
+.popup::backdrop {
+  background-color: rgb(0, 0, 0, 0.5);
+}
+
+#teacher_info_popup {
+  font-family: $primary-font-family;
+  width: 900px;
 
   .teacher_info {
     padding: 20px;
@@ -485,7 +523,6 @@ h1 {
     }
 
     .teacher_main_info {
-      //display: flex;
       position: relative;
 
     .teacher_photo {
@@ -501,7 +538,7 @@ h1 {
         margin-top: 0;
       }
 
-      .subject {
+      .course {
         font-size: 18px;
         font-weight: bold;
       }
@@ -527,23 +564,32 @@ h1 {
       .favorite_mark {
         position: absolute;
         width: 40px;
+        height: 40px;
         top: 0;
         right: 0;
+        border: none;
+        padding: 0;
+        margin: 0;
         cursor: pointer;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+      .favorite_mark:hover {
+        background-color: rgba(255, 255, 255, 0);
       }
     }
   }
 }
 
 #add_teacher_popup {
-  visibility: hidden;
   font-family: $primary-font-family;
   font-size: 14px;
   color: gray;
-
-  .popup_content {
-    width: 500px;
-  }
+  width: 500px;
 
   .add_teacher_form {
     padding: 20px;
@@ -725,20 +771,28 @@ h1 {
     }
   }
 
-  .favorites_teachers_list {
+  .slider {
     display: grid;
-    grid-template-columns: 50px 1fr 1fr 50px;
+    grid-template-columns: 50px 1fr 50px;
+
+  }
+
+  .favorites_teachers_list {
+
+    .teacher_card {
+      width: calc((100%) / 2);
+    }
 
     .teacher_card:nth-child(3) {
-      visibility: hidden;
+      display: none;
       position: absolute;
     }
     .teacher_card:nth-child(4) {
-      visibility: hidden;
+      display: none;
       position: absolute;
     }
     .teacher_card:nth-child(5) {
-      visibility: hidden;
+      display: none;
       position: absolute;
     }
   }
