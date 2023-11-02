@@ -142,7 +142,7 @@ function filterUsers(users, ageRange, country, gender, favorite) {
 // 4. Sorting
 
 function sortUsers(users, param, descending = false) {
-  const sortedUsers = [...users];
+  const sortedUsers = users;
   if (sortedUsers.length < 2 || !(param in sortedUsers[0])) return sortedUsers;
   let compareFunc;
   if (param === 'age') {

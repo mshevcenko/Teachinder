@@ -3,10 +3,12 @@ const testModules = require('./test-module');
 const { randomUserMock, additionalUsers } = require('./mock.js');
 const { formatUsers } = require('./process.js');
 const { initPopups, initSubmitForm, initAddTeacherButtons } = require('./popups.js');
-const { updateStatistics, initStatisticsButtons } = require('./statistics.js');
+// const { updateStatistics, initStatisticsButtons, updatePagination } = require('./statistics.js');
 const { initFilterCountries, initFiltration } = require('./filtration.js');
 const { TeacherList, initFavoriteArrowButtons } = require('./teacher.js');
 const { initSearch } = require('./search.js');
+const { getTeachers } = require('./api.js');
+const { initAddTeacherCountries, initAddTeacherCourses } = require('./popups');
 // require('../css/app.css');
 
 /** ******** Your code here! *********** */
@@ -76,14 +78,16 @@ function createTeacherCard(teacher) {
   return teacherCard;
 } */
 
-const formattedTeachers = formatUsers(randomUserMock, additionalUsers);
-const teacherList = new TeacherList(formattedTeachers);
-initPopups();
-updateStatistics(formattedTeachers);
-initStatisticsButtons(formattedTeachers);
-initFilterCountries();
-initFiltration(teacherList);
-initSubmitForm(formattedTeachers, teacherList);
-initFavoriteArrowButtons(teacherList.favoriteTeachers);
-initAddTeacherButtons();
-initSearch(formattedTeachers, teacherList);
+(async () => {
+  const teachers = await getTeachers(50);
+  const teacherList = new TeacherList(teachers);
+  initPopups();
+  initFilterCountries();
+  initFiltration(teacherList);
+  initSearch(teacherList);
+  initSubmitForm(teacherList);
+  initFavoriteArrowButtons(teacherList);
+  initAddTeacherButtons();
+  initAddTeacherCountries();
+  initAddTeacherCourses();
+})();

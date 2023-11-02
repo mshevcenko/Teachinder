@@ -198,6 +198,17 @@ h1 {
   padding-bottom: 40px;
 }
 
+.more_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.more_btn button {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin-bottom: 40px;
+}
+
 .teacher_card {
   padding-left: 20px;
   padding-right: 20px;
@@ -369,7 +380,6 @@ h1 {
 .pagination {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
-  cursor: pointer;
   padding: 30px 100px 30px;
 }
 .pagination span {
@@ -385,6 +395,7 @@ h1 {
   color: black;
 }
 .pagination .pagination_link {
+  cursor: pointer;
   color: rgb(27, 184, 217);
 }
 .pagination .pagination_link:hover {

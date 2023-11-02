@@ -1,0 +1,26 @@
+{
+  "teachers": [
+    {
+      "id": "NEW1",
+      "gender": "male",
+      "title": "",
+      "full_name": "Mykhailo Shevchenko",
+      "city": "A",
+      "state": "A",
+      "country": "Germany",
+      "postcode": "",
+      "coordinates": "",
+      "timezone": "",
+      "email": "muhailo11111@gmail.com",
+      "b_date": "1993-01-27",
+      "age": 30,
+      "phone": "+380688888888",
+      "picture_large": "",
+      "picture_thumbnail": "",
+      "favorite": false,
+      "course": "Mathematics",
+      "bg_color": "#ffffff",
+      "note": "Afgh"
+    }
+  ]
+}
