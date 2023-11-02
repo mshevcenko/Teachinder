@@ -228,6 +228,18 @@ h1 {
   padding-bottom: 40px;
 }
 
+.more_btn {
+  display: flex;
+  align-items:center;
+  justify-content:center;
+
+  button {
+    font-size: 18px;
+    padding: 10px 20px;
+    margin-bottom: 40px;
+  }
+}
+
 .teacher_card {
   padding-left: 20px;
   padding-right: 20px;
@@ -425,7 +437,6 @@ h1 {
 .pagination {
   font-family: $primary-font-family;
   font-size: 14px;
-  cursor: pointer;
   padding: 30px $side-padding 30px;
 
   span {
@@ -443,6 +454,7 @@ h1 {
     color: black;
   }
   .pagination_link {
+    cursor: pointer;
     color: rgb(27, 184, 217);
   }
   .pagination_link:hover {

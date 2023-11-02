@@ -1,5 +1,6 @@
 let { nextUserId } = require('./process.js');
 const { isUserValid } = require('./process.js');
+const { post } = require('./database.js');
 
 function initPopups() {
   const popups = document.getElementsByClassName('popup');
@@ -40,9 +41,7 @@ function createTeacherInfoPopup(teacherContainer) {
   for (const favoriteMark of teacherInfoPopup.getElementsByClassName('favorite_mark')) {
     favoriteMark.innerHTML = teacher.favorite ? '<img src="images/star.png" alt="favorite mark"/>' : '<img src="images/star_border.png" alt="favorite mark"/>';
     favoriteMark.onclick = () => {
-      console.log(teacher.favorite);
       teacherContainer.setFavorite(!teacher.favorite);
-      console.log(teacher.favorite);
       favoriteMark.innerHTML = teacher.favorite ? '<img src="images/star.png" alt="favorite mark"/>' : '<img src="images/star_border.png" alt="favorite mark"/>';
     };
   }
@@ -76,13 +75,11 @@ function getAge(birthdate) {
   return age;
 }
 
-function initSubmitForm(teachers, teachersList) {
+function initSubmitForm(teachersList) {
   const addTeacherPopup = document.getElementById('add_teacher_popup');
   const form = document.querySelector('#add_teacher_popup form');
-  console.log(form);
   form.onsubmit = (event) => {
     event.preventDefault();
-    console.log('submit');
     const name = document.getElementById('name_textbox').value;
     const subjectSelection = document.getElementById('subject_selection');
     const subject = subjectSelection.options[subjectSelection.selectedIndex].value;
@@ -95,9 +92,7 @@ function initSubmitForm(teachers, teachersList) {
     const sex = document.querySelector('input[name="sex"]:checked').value;
     const backgroundColor = document.getElementById('background_color_picker').value;
     const note = document.getElementById('notes_text_area').value;
-    console.log(Date.parse(dateOfBirth));
     const ageOld = dateOfBirth ? getAge(new Date(dateOfBirth)) : 0;
-    console.log(ageOld);
     const teacher = {
       id: `NEW${nextUserId++}`,
       gender: `${sex}`,
@@ -120,10 +115,9 @@ function initSubmitForm(teachers, teachersList) {
       bg_color: `${backgroundColor}`,
       note: `${note}`,
     };
-    console.log(teacher);
     if (isUserValid(teacher)) {
-      teachers.push(teacher);
       teachersList.addTeacher(teacher);
+      post(teacher);
       addTeacherPopup.close();
       document.body.classList.remove('popup_active');
     } else {
@@ -147,10 +141,54 @@ function initAddTeacherButtons() {
   }
 }
 
+const countries = [
+  'Germany',
+  'Ireland',
+  'Australia',
+  'United States',
+  'Finland',
+  'Turkey',
+  'Switzerland',
+  'New Zealand',
+  'Spain',
+  'Norway',
+  'Denmark',
+  'Iran',
+  'Canada',
+  'France',
+  'Spain',
+  'Norway',
+  'Denmark',
+  'Canada',
+  'France',
+  'Netherlands',
+  'Ukraine',
+];
+
+function initAddTeacherCountries() {
+  let html = `<option value="${countries[0]}" selected>${countries[0]}</option>`;
+  for (let i = 1; i < countries.length; i++) {
+    html += `<option value="${countries[i]}">${countries[i]}</option>`;
+  }
+  document.querySelector('#country_selection').innerHTML = html;
+}
+
+const courses = ['Mathematics', 'Physics', 'English', 'Computer Science', 'Dancing', 'Chess', 'Biology', 'Chemistry', 'Law', 'Art', 'Medicine', 'Statistics'];
+
+function initAddTeacherCourses() {
+  let html = `<option value="${courses[0]}" selected>${courses[0]}</option>`;
+  for (let i = 1; i < courses.length; i++) {
+    html += `<option value="${courses[i]}">${courses[i]}</option>`;
+  }
+  document.querySelector('#subject_selection').innerHTML = html;
+}
+
 module.exports = {
   initPopups,
   createTeacherInfoPopup,
   initSubmitForm,
   createAddTeacherPopup,
   initAddTeacherButtons,
+  initAddTeacherCountries,
+  initAddTeacherCourses,
 };

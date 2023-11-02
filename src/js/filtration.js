@@ -16,10 +16,10 @@ const countries = [
   'Spain',
   'Norway',
   'Denmark',
-  'Iran',
   'Canada',
   'France',
   'Netherlands',
+  'Ukraine',
 ];
 
 function initFilterCountries() {
